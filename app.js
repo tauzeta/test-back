@@ -1,20 +1,25 @@
 var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const bodyParser = require("body-parser");
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 var app = express();
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+/* Database configuration */
+const database = require('./config/dbconfig');
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+/* Init database */
+database.init();
 
-module.exports = app;
+/* Init server listening */
+const port = process.argv[2] || 3001;
+app.listen(port, function () {
+    console.log("Server listening on port : " + port);
+});
+
+/* Express configuration */
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+
+/* Router configuration */
+const REST_API_ROOT = '/api';
+app.use(REST_API_ROOT, require('./routes/router'));
