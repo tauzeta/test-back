@@ -1,10 +1,10 @@
-/* Load Car Data Access Object */
+/* Load User Data Access Object */
 const UserDao = require('../dao/userDao');
 
 /* Load Controller Common function */
 const ControllerCommon = require('./controllerCommon');
 
-/* Load Car entity */
+/* Load User entity */
 const User = require('../models/usermodel');
 
 /**
@@ -64,7 +64,7 @@ class UserController {
         user.username = req.body.username;
         user.password = req.body.password;
 
-        return this.userDao.update(car)
+        return this.userDao.update(user)
             .then(this.common.editSuccess(res))
             .catch(this.common.serverError(res));
     };

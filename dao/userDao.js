@@ -22,7 +22,7 @@ class UserDao {
         let sqlRequest = "SELECT id, username, password FROM Users WHERE id=$id";
         let sqlParams = {$id: id};
         return this.common.findOne(sqlRequest, sqlParams).then(row =>
-            new Car(row.id, row.username, row.password));
+            new User(row.id, row.username, row.password));
     };
 
     /**
@@ -61,7 +61,7 @@ class UserDao {
 
         let sqlParams = {
             $password: User.password,
-            $id: Car.id
+            $id: User.id
         };
         return this.common.run(sqlRequest, sqlParams);
     };
