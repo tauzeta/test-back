@@ -115,7 +115,6 @@ class UserController {
      */
     exists(req, res) {
         let id = req.params.id;
-
         this.userDao.exists(id)
             .then(this.common.existsSuccess(res))
             .catch(this.common.findError(res));
